@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -76,130 +75,149 @@ const Dashboard = () => {
     },
   ]);
 
-  const priorityColors = {
-    low: "bg-blue-100 text-blue-800",
-    medium: "bg-yellow-100 text-yellow-800",
-    high: "bg-red-100 text-red-800",
-  };
-
-  const statusColors = {
-    pending: "bg-gray-100 text-gray-800",
-    "in-progress": "bg-yellow-100 text-yellow-800",
-    completed: "bg-green-100 text-green-800",
-  };
-
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Оборудование</CardTitle>
-            <CardDescription>Общая статистика</CardDescription>
+    <div className="space-y-8">
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
+          <CardHeader>
+            <CardTitle className="flex items-center text-lg">
+              <div className="w-8 h-8 mr-3 rounded-full bg-blue-500/10 flex items-center justify-center">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              Статус систем
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Всего устройств:</span>
-                <span className="font-medium">127</span>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm font-medium">Серверы</span>
+                  <span className="text-sm text-green-600">100%</span>
+                </div>
+                <div className="h-2 bg-blue-100 rounded-full">
+                  <div className="h-2 bg-green-500 rounded-full" style={{ width: '100%' }}></div>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Рабочих:</span>
-                <span className="font-medium text-green-600">120</span>
+              <div>
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm font-medium">Сеть</span>
+                  <span className="text-sm text-green-600">98%</span>
+                </div>
+                <div className="h-2 bg-blue-100 rounded-full">
+                  <div className="h-2 bg-green-500 rounded-full" style={{ width: '98%' }}></div>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Неисправных:</span>
-                <span className="font-medium text-red-600">7</span>
+              <div>
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm font-medium">Камеры</span>
+                  <span className="text-sm text-yellow-600">94%</span>
+                </div>
+                <div className="h-2 bg-blue-100 rounded-full">
+                  <div className="h-2 bg-yellow-500 rounded-full" style={{ width: '94%' }}></div>
+                </div>
               </div>
             </div>
-            <Button variant="outline" className="w-full mt-4">Подробнее</Button>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Пользователи</CardTitle>
-            <CardDescription>Статистика по сотрудникам</CardDescription>
+        <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20">
+          <CardHeader>
+            <CardTitle className="flex items-center text-lg">
+              <div className="w-8 h-8 mr-3 rounded-full bg-indigo-500/10 flex items-center justify-center">
+                <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              Активные задачи
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Всего сотрудников:</span>
-                <span className="font-medium">47</span>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-2xl font-bold">{tasks.filter(t => t.status !== 'completed').length}</p>
+                  <p className="text-sm text-gray-500">Требуют внимания</p>
+                </div>
+                <div className="flex gap-2">
+                  <Badge variant="destructive" className="bg-red-100 text-red-800 hover:bg-red-100">
+                    {tasks.filter(t => t.priority === 'high').length} срочных
+                  </Badge>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Администраторов:</span>
-                <span className="font-medium">3</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Пользователей:</span>
-                <span className="font-medium">44</span>
-              </div>
+              <Button variant="outline" className="w-full">Просмотреть все</Button>
             </div>
-            <Button variant="outline" className="w-full mt-4">Подробнее</Button>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Безопасность</CardTitle>
-            <CardDescription>Статус системы наблюдения</CardDescription>
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20">
+          <CardHeader>
+            <CardTitle className="flex items-center text-lg">
+              <div className="w-8 h-8 mr-3 rounded-full bg-purple-500/10 flex items-center justify-center">
+                <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              Сотрудники
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Всего камер:</span>
-                <span className="font-medium">32</span>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/50 rounded-lg p-3 text-center">
+                  <p className="text-2xl font-bold">47</p>
+                  <p className="text-sm text-gray-500">Всего</p>
+                </div>
+                <div className="bg-white/50 rounded-lg p-3 text-center">
+                  <p className="text-2xl font-bold">3</p>
+                  <p className="text-sm text-gray-500">Админы</p>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Онлайн:</span>
-                <span className="font-medium text-green-600">30</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Офлайн:</span>
-                <span className="font-medium text-red-600">2</span>
-              </div>
+              <Button variant="outline" className="w-full">Управление</Button>
             </div>
-            <Button variant="outline" className="w-full mt-4">Подробнее</Button>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-xl">Объявления</CardTitle>
-              <CardDescription>Важная информация для всех сотрудников</CardDescription>
+              <CardTitle>Объявления</CardTitle>
+              <CardDescription>Важная информация для сотрудников</CardDescription>
             </div>
             {isAdmin && (
-              <Button size="sm" variant="outline" className="h-8">
+              <Button variant="outline" size="sm" className="ml-auto">
                 <Plus className="h-4 w-4 mr-1" />
-                Новое
+                Добавить
               </Button>
             )}
           </CardHeader>
           <CardContent className="space-y-4">
             {announcements.map((announcement) => (
-              <div key={announcement.id} className="border rounded-lg p-3 space-y-2">
-                <div className="flex justify-between items-start">
-                  <h3 className="font-medium text-lg">{announcement.title}</h3>
-                  <span className="text-xs text-gray-500">{announcement.date}</span>
-                </div>
-                <p className="text-gray-600 text-sm">{announcement.content}</p>
-                <div className="text-xs text-gray-500">Автор: {announcement.author}</div>
-              </div>
+              <Card key={announcement.id} className="bg-white/50">
+                <CardHeader className="p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <CardTitle className="text-base">{announcement.title}</CardTitle>
+                    <span className="text-xs text-gray-500">{announcement.date}</span>
+                  </div>
+                  <CardDescription>{announcement.content}</CardDescription>
+                  <div className="text-xs text-gray-500 mt-2">Автор: {announcement.author}</div>
+                </CardHeader>
+              </Card>
             ))}
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-xl">Задачи</CardTitle>
+              <CardTitle>Задачи</CardTitle>
               <CardDescription>Текущие задания для IT-отдела</CardDescription>
             </div>
             {isAdmin && (
-              <Button size="sm" variant="outline" className="h-8">
+              <Button variant="outline" size="sm" className="ml-auto">
                 <Plus className="h-4 w-4 mr-1" />
                 Добавить
               </Button>
@@ -207,104 +225,135 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="all" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-3 mb-4">
                 <TabsTrigger value="all">Все</TabsTrigger>
-                <TabsTrigger value="pending">В работе</TabsTrigger>
+                <TabsTrigger value="active">В работе</TabsTrigger>
                 <TabsTrigger value="completed">Выполнено</TabsTrigger>
               </TabsList>
-              <TabsContent value="all" className="space-y-4 mt-4">
+              
+              <TabsContent value="all" className="space-y-4">
                 {tasks.map((task) => (
-                  <div key={task.id} className="border rounded-lg p-3 space-y-2">
-                    <div className="flex justify-between items-start">
-                      <div className="space-y-1">
-                        <h3 className="font-medium">{task.title}</h3>
-                        <p className="text-sm text-gray-600">{task.description}</p>
-                      </div>
-                      <Badge className={priorityColors[task.priority]}>
-                        {task.priority === "low" && "Низкий"}
-                        {task.priority === "medium" && "Средний"}
-                        {task.priority === "high" && "Высокий"}
-                      </Badge>
-                    </div>
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>Срок: {task.dueDate}</span>
-                      <Badge className={statusColors[task.status]}>
-                        {task.status === "pending" && "Ожидает"}
-                        {task.status === "in-progress" && "В процессе"}
-                        {task.status === "completed" && (
-                          <span className="flex items-center">
-                            <Check className="h-3 w-3 mr-1" />
-                            Выполнено
-                          </span>
-                        )}
-                      </Badge>
-                    </div>
-                    {isAdmin && task.status !== "completed" && (
-                      <Button size="sm" variant="outline" className="w-full mt-1">
-                        <Check className="h-4 w-4 mr-1" />
-                        Отметить как выполненное
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </TabsContent>
-              <TabsContent value="pending" className="space-y-4 mt-4">
-                {tasks
-                  .filter((task) => task.status !== "completed")
-                  .map((task) => (
-                    <div key={task.id} className="border rounded-lg p-3 space-y-2">
-                      <div className="flex justify-between items-start">
-                        <div className="space-y-1">
-                          <h3 className="font-medium">{task.title}</h3>
-                          <p className="text-sm text-gray-600">{task.description}</p>
+                  <Card key={task.id} className="bg-white/50">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-medium">{task.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{task.description}</p>
                         </div>
-                        <Badge className={priorityColors[task.priority]}>
-                          {task.priority === "low" && "Низкий"}
-                          {task.priority === "medium" && "Средний"}
-                          {task.priority === "high" && "Высокий"}
+                        <Badge className={
+                          task.priority === "high" ? "bg-red-100 text-red-800" :
+                          task.priority === "medium" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-blue-100 text-blue-800"
+                        }>
+                          {task.priority === "high" ? "Срочно" :
+                           task.priority === "medium" ? "Средний" :
+                           "Низкий"}
                         </Badge>
                       </div>
-                      <div className="flex justify-between text-xs text-gray-500">
-                        <span>Срок: {task.dueDate}</span>
-                        <Badge className={statusColors[task.status]}>
-                          {task.status === "pending" && "Ожидает"}
-                          {task.status === "in-progress" && "В процессе"}
+                      <div className="flex justify-between items-center mt-3">
+                        <span className="text-sm text-gray-500">Срок: {task.dueDate}</span>
+                        <Badge variant="outline" className={
+                          task.status === "completed" ? "border-green-500 text-green-700" :
+                          task.status === "in-progress" ? "border-yellow-500 text-yellow-700" :
+                          "border-gray-500 text-gray-700"
+                        }>
+                          {task.status === "completed" ? (
+                            <span className="flex items-center">
+                              <Check className="h-3 w-3 mr-1" />
+                              Выполнено
+                            </span>
+                          ) : task.status === "in-progress" ? "В процессе" : "Ожидает"}
                         </Badge>
                       </div>
-                      {isAdmin && (
-                        <Button size="sm" variant="outline" className="w-full mt-1">
+                      {isAdmin && task.status !== "completed" && (
+                        <Button size="sm" variant="outline" className="w-full mt-3">
                           <Check className="h-4 w-4 mr-1" />
                           Отметить как выполненное
                         </Button>
                       )}
-                    </div>
-                  ))}
+                    </CardContent>
+                  </Card>
+                ))}
               </TabsContent>
-              <TabsContent value="completed" className="space-y-4 mt-4">
-                {tasks
-                  .filter((task) => task.status === "completed")
-                  .map((task) => (
-                    <div key={task.id} className="border rounded-lg p-3 space-y-2">
-                      <div className="flex justify-between items-start">
-                        <div className="space-y-1">
-                          <h3 className="font-medium">{task.title}</h3>
-                          <p className="text-sm text-gray-600">{task.description}</p>
+              
+              <TabsContent value="active" className="space-y-4">
+                {tasks.filter(t => t.status !== "completed").map((task) => (
+                  <Card key={task.id} className="bg-white/50">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-medium">{task.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{task.description}</p>
                         </div>
-                        <Badge className={priorityColors[task.priority]}>
-                          {task.priority === "low" && "Низкий"}
-                          {task.priority === "medium" && "Средний"}
-                          {task.priority === "high" && "Высокий"}
+                        <Badge className={
+                          task.priority === "high" ? "bg-red-100 text-red-800" :
+                          task.priority === "medium" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-blue-100 text-blue-800"
+                        }>
+                          {task.priority === "high" ? "Срочно" :
+                           task.priority === "medium" ? "Средний" :
+                           "Низкий"}
                         </Badge>
                       </div>
-                      <div className="flex justify-between text-xs text-gray-500">
-                        <span>Срок: {task.dueDate}</span>
-                        <Badge className={statusColors[task.status]}>
+                      <div className="flex justify-between items-center mt-3">
+                        <span className="text-sm text-gray-500">Срок: {task.dueDate}</span>
+                        <Badge variant="outline" className={
+                          task.status === "completed" ? "border-green-500 text-green-700" :
+                          task.status === "in-progress" ? "border-yellow-500 text-yellow-700" :
+                          "border-gray-500 text-gray-700"
+                        }>
+                          {task.status === "completed" ? (
+                            <span className="flex items-center">
+                              <Check className="h-3 w-3 mr-1" />
+                              Выполнено
+                            </span>
+                          ) : task.status === "in-progress" ? "В процессе" : "Ожидает"}
+                        </Badge>
+                      </div>
+                      {isAdmin && task.status !== "completed" && (
+                        <Button size="sm" variant="outline" className="w-full mt-3">
+                          <Check className="h-4 w-4 mr-1" />
+                          Отметить как выполненное
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </TabsContent>
+              
+              <TabsContent value="completed" className="space-y-4">
+                {tasks.filter(t => t.status === "completed").map((task) => (
+                  <Card key={task.id} className="bg-white/50">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-medium">{task.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{task.description}</p>
+                        </div>
+                        <Badge className={
+                          task.priority === "high" ? "bg-red-100 text-red-800" :
+                          task.priority === "medium" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-blue-100 text-blue-800"
+                        }>
+                          {task.priority === "high" ? "Срочно" :
+                           task.priority === "medium" ? "Средний" :
+                           "Низкий"}
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between items-center mt-3">
+                        <span className="text-sm text-gray-500">Срок: {task.dueDate}</span>
+                        <Badge variant="outline" className={
+                          task.status === "completed" ? "border-green-500 text-green-700" :
+                          task.status === "in-progress" ? "border-yellow-500 text-yellow-700" :
+                          "border-gray-500 text-gray-700"
+                        }>
                           <Check className="h-3 w-3 mr-1" />
                           Выполнено
                         </Badge>
                       </div>
-                    </div>
-                  ))}
+                    </CardContent>
+                  </Card>
+                ))}
               </TabsContent>
             </Tabs>
           </CardContent>
