@@ -12,7 +12,6 @@ import {
 import { Search, User } from 'lucide-react';
 import ProfileEditor from '../profile/ProfileEditor';
 import NotificationsPopover from '../notifications/NotificationsPopover';
-import NewsTicker from '../news/NewsTicker';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -55,10 +54,6 @@ const Header = () => {
               </Link>
             ))}
           </nav>
-        </div>
-
-        <div className="flex-1 mx-6">
-          <NewsTicker />
         </div>
 
         <div className="flex items-center space-x-4">

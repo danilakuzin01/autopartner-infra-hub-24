@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Check, Plus } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import NewsTicker from "@/components/news/NewsTicker";
 
 interface Announcement {
   id: string;
@@ -77,6 +78,10 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8">
+      <div className="w-full">
+        <NewsTicker />
+      </div>
+
       <div className="grid gap-6 md:grid-cols-3">
         <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
           <CardHeader>
